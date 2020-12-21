@@ -44,6 +44,9 @@
 </template>
 
 <script>
+import firebase from "../firebaseConfig";
+const db = firebase.firestore();
+
 export default {
   name: 'addBlog',
   data() {
@@ -60,22 +63,13 @@ export default {
   },
   methods: {
     post() {
-      const data = {
-        title: this.blog.title,
-        body: this.blog.content,
-        userId: 1
-      }
 
-      fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      }).then(res => res.json()).then(data => {
-        console.log(data)
+      db.collection("blogs").add(this.blog)
+      .then(() => {
+        console.log("Successfully written");
         this.submitted = true;
-      }).catch(err => console.error(err));
+      })
+      .catch(err => console.error("error writing document", err));
     }
   }
  }
