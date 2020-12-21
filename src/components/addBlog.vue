@@ -1,7 +1,7 @@
 <template>
 <div id="add-blog">
   <h2>Add a New Blog Post</h2>
-  <form>
+  <form v-if="!submitted">
     <label>Blog Title:</label>
     <input type="text" v-model.lazy="blog.title" required/>
     <label>Blog Content:</label>
@@ -22,7 +22,11 @@
         <option :value="author" :key="author">{{author}}</option>
       </template>
     </select>
+    <button @click.prevent="post">Add Blog</button>
   </form>
+  <div v-if="submitted">
+    <h3>Thanks for adding your post</h3>
+  </div>
   <div id="preview">
     <h3>Preview Blog</h3>
     <p>Blog Title: {{ blog.title }}</p>
@@ -50,9 +54,31 @@ export default {
         categories: [],
         author: ""
       },
-      authors: ['Ventar the Unholy', 'Night Vex the Mauler', 'Maffer Dragonhand']
+      authors: ['Ventar the Unholy', 'Night Vex the Mauler', 'Maffer Dragonhand'],
+      submitted: false
     }
-  }}
+  },
+  methods: {
+    post() {
+      const data = {
+        title: this.blog.title,
+        body: this.blog.content,
+        userId: 1
+      }
+
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json()).then(data => {
+        console.log(data)
+        this.submitted = true;
+      }).catch(err => console.error(err));
+    }
+  }
+ }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
