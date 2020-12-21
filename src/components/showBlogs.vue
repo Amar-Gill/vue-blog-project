@@ -13,6 +13,9 @@
 </template>
 
 <script>
+
+import searchMixin from '../mixins/searchMixin';
+
 export default {
   name: 'showBlogs',
   data() {
@@ -22,9 +25,7 @@ export default {
     }
   },
   computed: {
-      filteredBlogs() {
-          return this.blogs.filter(blog => blog.title.match(this.search))
-      }
+      
   },
   filters: {
       toUppercase(value) {return value.toUpperCase()}, // allow for use of 'to-uppercase' in markup
@@ -57,7 +58,8 @@ export default {
       fetch("https://jsonplaceholder.typicode.com/posts").then(res => res.json()).then(data => {
           this.blogs = data.slice(0,10);
       })
-  }
+  },
+  mixins: [searchMixin]
  }
 </script>
 
