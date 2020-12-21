@@ -16,6 +16,12 @@
     <label>Hunters</label>
     <input type="checkbox" value="hunters" v-model="blog.categories"/>
     </div>
+    <label>Author:</label>
+    <select v-model="blog.author">
+      <template v-for="author in authors">
+        <option :value="author" :key="author">{{author}}</option>
+      </template>
+    </select>
   </form>
   <div id="preview">
     <h3>Preview Blog</h3>
@@ -28,6 +34,7 @@
       <li :key="category">{{ category }}</li>
       </template>
     </ul>
+    <p>Author: {{blog.author}}</p>
   </div>
 </div>
 </template>
@@ -40,8 +47,10 @@ export default {
       blog: {
         title: "",
         content: "",
-        categories: []
-      }
+        categories: [],
+        author: ""
+      },
+      authors: ['Ventar the Unholy', 'Night Vex the Mauler', 'Maffer Dragonhand']
     }
   }}
 </script>
