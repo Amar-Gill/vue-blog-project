@@ -4,8 +4,8 @@
     <input type="text" v-model="search" placeholder="search blogs"/>
     <template v-for="blog in filteredBlogs">
     <div :key="blog.id" class="single-blog">
-       <router-link :to="'/blog/' + blog.id"> <h2 v-rainbow>{{blog.title | to-uppercase}}</h2></router-link>
-        <article>{{blog.body | snippet}}</article>
+       <router-link :to="'/blog/' + blog.id"> <h2 v-rainbow>{{blog.title }}</h2></router-link>
+        <article>{{blog.content | snippet }}</article>
     </div>
     </template>
   
@@ -13,8 +13,10 @@
 </template>
 
 <script>
-
 import searchMixin from '../mixins/searchMixin';
+import firebase from "../firebaseConfig";
+
+const db = firebase.firestore()
 
 export default {
   name: 'showBlogs',
@@ -55,9 +57,20 @@ export default {
   
   },
   created() {
-      fetch("https://jsonplaceholder.typicode.com/posts").then(res => res.json()).then(data => {
-          this.blogs = data.slice(0,10);
-      })
+    db.collection("blogs")
+    .get()
+    .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+            this.blogs.push({
+                author: doc.data().author,
+                categories: doc.data().categories,
+                content: doc.data().content,
+                title: doc.data().title,
+                id: doc.id
+            })
+        });
+    })
+    .catch(error => console.error(error));
   },
   mixins: [searchMixin]
  }
