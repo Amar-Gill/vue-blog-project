@@ -1,4 +1,6 @@
-# blog-project
+# vue-blog-project
+
+A web app which displays a user's blogs with an interface to publish new blogs. Uses FireStore to save blogs. Bootstrapped with `vue-cli`.
 
 ## Project setup
 ```
