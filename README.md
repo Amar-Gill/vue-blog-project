@@ -2,7 +2,7 @@
 
 A web app which displays a user's blogs with an interface to publish new blogs. Uses FireStore to save blogs. Bootstrapped with `vue-cli`.
 
-This project was the focus of the [Vue.js 2 course](https://www.youtube.com/watch?v=5LYrN_cAJoA) by The Net Ninja.
+This project was the focus of the [Vue.js 2 Course](https://www.youtube.com/watch?v=5LYrN_cAJoA) by The Net Ninja.
 
 ## Project setup
 ```
