@@ -14,9 +14,6 @@
 
 <script>
 import searchMixin from '../mixins/searchMixin';
-import firebase from "../firebaseConfig";
-
-const db = firebase.firestore()
 
 export default {
   name: 'showBlogs',
@@ -57,7 +54,7 @@ export default {
   
   },
   created() {
-    db.collection("blogs")
+    this.$store.state.db.collection("blogs")
     .get()
     .then(querySnapshot => {
         querySnapshot.forEach(doc => {

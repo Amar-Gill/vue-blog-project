@@ -44,9 +44,6 @@
 </template>
 
 <script>
-import firebase from "../firebaseConfig";
-const db = firebase.firestore();
-
 export default {
   name: 'addBlog',
   data() {
@@ -64,7 +61,7 @@ export default {
   methods: {
     post() {
 
-      db.collection("blogs").add(this.blog)
+     this.$store.state.db.collection("blogs").add(this.blog)
       .then(() => {
         console.log("Successfully written");
         this.submitted = true;

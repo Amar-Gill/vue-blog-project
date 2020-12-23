@@ -12,9 +12,6 @@
 </template>
 
 <script>
-import firebase from "../firebaseConfig";
-const db = firebase.firestore();
-
 export default {
     data() {
         return {
@@ -23,7 +20,7 @@ export default {
         }
     },
     created() {
-        const docRef = db.collection("blogs").doc(this.id)
+        const docRef = this.$store.state.db.collection("blogs").doc(this.id)
 
         docRef.get().then((doc) => {
         if (doc.exists) {
