@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import Routes from './routes';
+import firebase from "./firebaseConfig";
 import Vuex from 'vuex';
 
 Vue.config.productionTip = false
@@ -10,7 +11,6 @@ Vue.use(VueRouter);
 
 Vue.use(Vuex);
 
-import firebase from "./firebaseConfig";
 
 const db = firebase.firestore()
 
